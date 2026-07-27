@@ -14,6 +14,9 @@ h1 {
     border-radius: 50%;
     border: 3px solid black;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #buttons-container {
@@ -25,5 +28,16 @@ h1 {
 
 button {
     font-size: 2rem;
-    padding: 4px 10px;
+    padding: 6px 10px;
+    border-radius: 10px;
+
 }
+
+button:hover {
+    cursor: pointer;
+}
+
+#time-value {
+    font-size: 10rem;
+}
+
