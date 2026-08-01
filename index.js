@@ -32,16 +32,20 @@ function reduceTime() {
 }
 let seconds;
 let minutes;
+let isPaused = false;
 const time = document.querySelector("#time-value");
 const start = document.querySelector("#start-button")
 const pause = document.querySelector("#pause-button");
 
 displayTime();
 start.addEventListener("click", () => {
+    if(!isPaused){
     setInterval(reduceTime, 1000);
+    }
 });
 
 pause.addEventListener("click", () => {
     console.log("pause working")
-    clearInterval(reduceTime);
+    isPaused = true;
+    console.log(clearInterval(reduceTime));
 });
