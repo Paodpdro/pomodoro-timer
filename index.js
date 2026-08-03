@@ -39,6 +39,8 @@ let timerInterval = null;
 const time = document.querySelector("#time-value");
 const start = document.querySelector("#start-button")
 const pause = document.querySelector("#pause-button");
+const reset = document.querySelector("#reset-button");
+
 
 displayTime();
 start.addEventListener("click", () => {
@@ -56,3 +58,9 @@ pause.addEventListener("click", () => {
     clearInterval(timerInterval);
     timerInterval = null
 });
+
+reset.addEventListener("click", () =>  {
+    clearInterval(timerInterval);
+    timerInterval=null;
+    displayTime();
+})
