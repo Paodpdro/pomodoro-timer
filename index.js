@@ -1,48 +1,47 @@
 console.log("hi")
 
-function displayTime() {
+function displayTime(minutes, seconds) {
     console.log('display time function working')
-    seconds = '00';
-    minutes = 1;
-    time.textContent = `${minutes}:${seconds}`
-}
-
-function reduceTime() {
-    if(!isPaused){
-        console.log("Start time working");
-        if (minutes === 0 && seconds === 0) {
-            return
-        }
-
-        if (seconds =='00') {
-            seconds = 59;
-            minutes -=1;
-        }
-        else {
-            seconds -=1
-        }
-
-        if(seconds < 10) {
+    // seconds = '00';
+    // minutes = 1;
+    // time.textContent = `${minutes}:${seconds}`
+    if(seconds < 10) {
             time.textContent = `${minutes}:0${seconds}`;
         }
         else {
             time.textContent = `${minutes}:${seconds}`;
         }
+}
 
-    }
+function reduceTime() {
+        console.log("Start time working");
+        if (minutes === 0 && seconds === 0) {
+            return
+        }
+        if (seconds === 0) {
+            seconds = 60;
+            minutes --;
+        }
+        seconds--;
+
+        displayTime(minutes, seconds);
+        
+
+    
     
 }
-let seconds;
-let minutes;
+let seconds = 0;
+let minutes = 25;
 let isPaused = false;
 let timerInterval = null;
 const time = document.querySelector("#time-value");
+const circle = document.querySelector("#circle-container");
 const start = document.querySelector("#start-button")
 const pause = document.querySelector("#pause-button");
 const reset = document.querySelector("#reset-button");
 
 
-displayTime();
+displayTime(minutes, seconds);
 start.addEventListener("click", () => {
     if(timerInterval !== null) {
         return
@@ -62,5 +61,7 @@ pause.addEventListener("click", () => {
 reset.addEventListener("click", () =>  {
     clearInterval(timerInterval);
     timerInterval=null;
-    displayTime();
+    seconds = 0;
+    minutes = 25;
+    displayTime(25, 0);
 })
