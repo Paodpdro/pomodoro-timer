@@ -2,9 +2,6 @@ console.log("hi")
 
 function displayTime(minutes, seconds) {
     console.log('display time function working')
-    // seconds = '00';
-    // minutes = 1;
-    // time.textContent = `${minutes}:${seconds}`
     if(seconds < 10) {
             time.textContent = `${minutes}:0${seconds}`;
         }
@@ -16,7 +13,12 @@ function displayTime(minutes, seconds) {
 function reduceTime() {
         console.log("Start time working");
         if (minutes === 0 && seconds === 0) {
-            return
+            if(!isOnBreak) {
+                breakTime();
+            }
+            else {
+                resetTime();
+            }
         }
         if (seconds === 0) {
             seconds = 60;
@@ -26,14 +28,46 @@ function reduceTime() {
 
         displayTime(minutes, seconds);
         
-
-    
-    
 }
+
+function resetTime() {
+    console.log("resetTime working")
+    if(isOnBreak) {
+        clearInterval(timerInterval);
+        timerInterval=null;
+        seconds = 0;
+        minutes = 5;
+        displayTime(minutes, seconds);      
+        
+    }
+    else { 
+        clearInterval(timerInterval);
+        timerInterval=null;
+        isOnBreak = false;
+        seconds = 0;
+        minutes = 25;
+        displayTime(minutes, seconds);
+    }
+
+}
+
+function breakTime() {
+    if(minutes === 0 && seconds === 0) {
+        isOnBreak = false;
+        resetTime();
+    }
+    console.log("breakTime working")
+    minutes = 1;
+    seconds = 0;
+    isOnBreak = true;
+    displayTime(minutes, seconds);
+}
+
 let seconds = 0;
-let minutes = 25;
+let minutes = 1;
 let isPaused = false;
 let timerInterval = null;
+let isOnBreak = false;
 const time = document.querySelector("#time-value");
 const circle = document.querySelector("#circle-container");
 const start = document.querySelector("#start-button")
@@ -58,10 +92,4 @@ pause.addEventListener("click", () => {
     timerInterval = null
 });
 
-reset.addEventListener("click", () =>  {
-    clearInterval(timerInterval);
-    timerInterval=null;
-    seconds = 0;
-    minutes = 25;
-    displayTime(25, 0);
-})
+reset.addEventListener("click", resetTime);
